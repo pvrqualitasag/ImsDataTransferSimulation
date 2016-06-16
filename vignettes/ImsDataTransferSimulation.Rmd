@@ -1,0 +1,45 @@
+---
+title: "ImsDataTransfer Simulation"
+author: "Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Disclaimer
+This document contains a short `How-To` for using this package to simulate composite milk record data.
+
+## Introduction
+Composite milk record data are simulated using the R6 class `R6ClassCompositeMilkRecord`. Objects of `R6ClassCompositeMilkRecord` consist of the following components.
+
+- milkYield
+- fatPercent
+- proteinPercent
+- sccValue
+- ureaContent
+- lactoseContent
+
+
+## Simulate a composite milk record
+A composite milk record can be simulated using the method `sampleUnifRecord()` of `R6ClassCompositeMilkRecord`. When creating an instance of `R6ClassCompositeMilkRecord` all the components are initialized. The method `sampleUnifRecord()` generates values for each of the components. The result of simulating one composite milk record can be shown as follows.
+
+```{r SimulateCompositeMilkRecord}
+### # set seed for reproducibillity
+set.seed(1234)
+### # instatiate a composite milk object
+r6objComMilkRec <- ImsDataTransferSimulation::R6ClassCompositeMilkRecord$new()
+### # simulate
+r6objComMilkRec$sampleUnifRecord()
+### # show the result
+cat("Simulation result:\n", r6objComMilkRec$toTsvString(), "\n", sep = "")
+```
+
+The above shown record can also be written to a file using method `writeTsvStringToFile()`. 
+
+```{r WriteResultToFile}
+r6objComMilkRec$writeTsvStringToFile()
+```
+
