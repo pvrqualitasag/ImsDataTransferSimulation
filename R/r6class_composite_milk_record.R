@@ -63,14 +63,37 @@ R6ClassCompositeMilkRecord <- R6::R6Class( classname = "R6ClassCompositeMilkReco
                                              },
                                              toTsvString = function(){
                                                return(paste(c(private$milkYield$toTsvString(),
-                                                            private$fatPercent$toTsvString(),
-                                                            private$proteinPercent$toTsvString(),
-                                                            private$ureaContent$toTsvString(),
-                                                            private$lactoseContent$toTsvString()), sep = "\n", collapse = "\n"))
+                                                              private$fatPercent$toTsvString(),
+                                                              private$proteinPercent$toTsvString(),
+                                                              private$ureaContent$toTsvString(),
+                                                              private$lactoseContent$toTsvString()),
+                                                            sep = "\t",
+                                                            collapse = "\t"))
                                              },
-                                             writeTsvStringToFile = function(psFileName = "composite_milk_record.tsv"){
+                                             toCsv2String = function(){
+                                               return(paste(c(private$milkYield$toCsv2String(),
+                                                              private$fatPercent$toCsv2String(),
+                                                              private$proteinPercent$toCsv2String(),
+                                                              private$ureaContent$toCsv2String(),
+                                                              private$lactoseContent$toCsv2String()),
+                                                            sep = ";",
+                                                            collapse = ";"))
+                                             },
+                                             writeTsvStringToFile = function(psFileName = "composite_milk_record.tsv",
+                                                                             pbAppend   = FALSE){
                                                cat(" * Writing record to file:", psFileName, "\n")
-                                               cat(self$toTsvString(), file = psFileName, sep = "")
+                                               cat(self$toTsvString(),"\n",
+                                                   file   = psFileName,
+                                                   sep    = "",
+                                                   append = pbAppend)
+                                             },
+                                             writeCsv2StringToFile = function(psFileName = "more_milk_record.csv",
+                                                                              pbAppend   = FALSE){
+                                               cat(" * Writing record to file:", psFileName, "\n")
+                                               cat(self$toCsv2String(),"\n",
+                                                   file   = psFileName,
+                                                   sep    = "",
+                                                   append = pbAppend)
                                              }
                                            ),
                                            private   = list(

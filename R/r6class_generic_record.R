@@ -43,14 +43,14 @@ R6ClassGenericRecord <- R6::R6Class( classname = "R6ClassGenericRecord",
                                        initialize      = function(){
                                          private$recordDate <- format(Sys.Date(), "%Y%m%d")
                                        },
-                                       sampleUnifValue = function(minValue = 0, maxValue = 1){
-                                         self$setRecordValue(recordValue = runif(n=1, min = minValue, max = maxValue))
+                                       sampleUnifValue = function(minValue = 0, maxValue = 1, digits = 2){
+                                         self$setRecordValue(recordValue = round(runif(n=1, min = minValue, max = maxValue), digits = digits))
                                        },
                                        toTsvString     = function(){
-                                         return(paste(self$getRecordType(),
-                                                      self$getRecordDate(),
-                                                      self$getRecordValue(),
-                                                      self$getRecordUnit(), sep = "\t", collapse = "\t"))
+                                         return(private$toSepString(psSep = "\t"))
+                                       },
+                                       toCsv2String   = function(){
+                                         return(private$toSepString(psSep = ";"))
                                        },
                                        setRecordType  = function(recordType){private$recordType <- recordType},
                                        getRecordType  = function(){return(private$recordType)},
@@ -65,6 +65,12 @@ R6ClassGenericRecord <- R6::R6Class( classname = "R6ClassGenericRecord",
                                        recordType  = NULL,
                                        recordDate  = NULL,
                                        recordValue = NULL,
-                                       recordUnit  = NULL
+                                       recordUnit  = NULL,
+                                       toSepString     = function(psSep){
+                                         return(paste(self$getRecordType(),
+                                                      self$getRecordDate(),
+                                                      self$getRecordValue(),
+                                                      self$getRecordUnit(), sep = psSep, collapse = psSep))
+                                       }
                                      ) )
 

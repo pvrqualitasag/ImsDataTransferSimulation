@@ -41,5 +41,37 @@ The above shown record can also be written to a file using method `writeTsvStrin
 
 ```{r WriteResultToFile}
 r6objComMilkRec$writeTsvStringToFile()
+r6objComMilkRec$writeCsv2StringToFile()
+```
+
+In order to upload some files, we generate new instances.
+
+```{r NewRecords}
+r6objComMilkRecNew <- ImsDataTransferSimulation::R6ClassCompositeMilkRecord$new()
+r6objComMilkRecNew$sampleUnifRecord()
+r6objComMilkRecNew$writeTsvStringToFile(psFileName = "new_record.tsv")
+r6objComMilkRecNew$writeCsv2StringToFile(psFileName = "new_record.csv")
+
+r6objComMilkRec2 <- ImsDataTransferSimulation::R6ClassCompositeMilkRecord$new()
+r6objComMilkRec2$sampleUnifRecord()
+r6objComMilkRec2$writeTsvStringToFile(psFileName = "new_record2.tsv")
+r6objComMilkRec2$writeCsv2StringToFile(psFileName = "new_record2.csv")
+
+r6objComMilkRec3 <- ImsDataTransferSimulation::R6ClassCompositeMilkRecord$new()
+r6objComMilkRec3$sampleUnifRecord()
+r6objComMilkRec3$writeTsvStringToFile(psFileName = "o_new_record3.tsv")
+r6objComMilkRec3$writeCsv2StringToFile(psFileName = "o_new_record3.csv")
+```
+
+Put more records in a file.
+
+```{r LoopOverRecords}
+nNrRecord <- 5
+for(i in 1:nNrRecord){
+  r6objLoop <- ImsDataTransferSimulation::R6ClassCompositeMilkRecord$new()
+  r6objLoop$sampleUnifRecord()
+  r6objLoop$writeTsvStringToFile(psFileName = "multiple_records.tsv",
+                                 pbAppend   = TRUE)
+}
 ```
 
